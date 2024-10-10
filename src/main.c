@@ -3,7 +3,7 @@
 
 #include <tree_sitter/api.h>
 
-#include "languages/c.h"
+#include "action.h"
 #include "parser.h"
 
 int main(int argc, char **argv) {
@@ -16,16 +16,12 @@ int main(int argc, char **argv) {
     int file_count = argc - 2;
 
     for (int i = 0; i < file_count; i++) {
-        ParseResult parse_result = parse_file(language, files[i]);
+        ParseResult parse_result = parse(language, files[i]);
         if (parse_result.tree == NULL) {
             printf("Failed to parse file: %s\n", files[i]);
         }
 
-        if (strcmp(language, "c") == 0) {
-            if (!print_functions_c(parse_result)) {
-                printf("Failed to parse file: %s\n", files[i]);
-            }
-        } else {
+        if (!print_functions(language, parse_result)) {
             printf("Language '%s' not supported\n", language);
         }
     }

@@ -28,10 +28,6 @@ ParseResult parse_file(char *parser_name, char *file_path) {
     fseek(file, 0, SEEK_SET);
 
     char *contents = malloc(size + 1);
-    if (contents == NULL) {
-        return (ParseResult) { NULL, NULL };
-    }
-
     contents[size] = '\0';
     fread(contents, 1, size, file);
 
